@@ -16,6 +16,7 @@
   padding: 3rem;
   font-size: 1.8rem;
   text-transform: capitalize;
+  color: #000;
 }
 
 .sign-up-buttons {
@@ -23,16 +24,16 @@
   gap: 2rem;
 }
 .loggin {
-  width: 8rem;
-  background-color: blue;
+  width: 10rem;
+  background-color: var(--primary-btn-color);
   color: var(--text-color);
   text-transform: capitalize;
   font-size: 1.6rem;
   border-radius: 0.9rem;
   text-decoration: none;
-  padding: 0.5rem;
+  padding: 0.8rem;
 }
 .loggin:hover {
-  background-color: lightseagreen;
+  background-color: var(--secondary-color);
   cursor: pointer;
 }

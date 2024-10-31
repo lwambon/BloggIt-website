@@ -1,4 +1,5 @@
 import "./Hero.css";
+import { Link } from "react-router-dom";
 
 function Hero() {
   return (
@@ -13,12 +14,12 @@ function Hero() {
         </p>
 
         <div className="heros-link">
-          <a href="" className="heros-link-items">
-            start writting
-          </a>
-          <a href="" className="heros-link-items">
-            explore stories for readers
-          </a>
+          <Link className="heros-link-items " to="/write">
+            start writing
+          </Link>
+          <Link className="heros-link-items " to="/explore">
+            Explore stories from other readers
+          </Link>
         </div>
       </div>
     </div>

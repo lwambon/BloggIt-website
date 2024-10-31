@@ -1,11 +1,18 @@
-*{
+* {
   padding: 0;
   box-sizing: border-box;
   margin: 0;
 }
-html{
-  font-size:62.5%;
+html {
+  font-size: 62.5%;
 }
-body{
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+:root {
+  --text-color: #fff;
+  --primary-color: #000;
+  --secondary-color: #ff4545;
+  --primary-btn-color: #ff9d3d;
 }

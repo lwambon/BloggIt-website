@@ -1,35 +1,36 @@
-.header-content{
-    display: flex;
-    flex-wrap: wrap;
-    align-items:center;
-    justify-content:space-between;
-    padding: 1.5rem;
+.header-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
 }
-.header-logo{
-    text-transform: uppercase;
-    font-size:1.9rem;
-}
-
-.nav-lists{
-    list-style: none;
-    text-decoration: none;
-    padding: 3rem;
-    font-size: 1.8rem;
-    text-transform:capitalize;
+.header-logo {
+  text-transform: uppercase;
+  font-size: 1.9rem;
 }
 
-.sign-up-buttons{
-    display: flex;
-    gap: 2rem;
+.nav-lists {
+  list-style: none;
+  text-decoration: none;
+  padding: 3rem;
+  font-size: 1.8rem;
+  text-transform: capitalize;
 }
-.loggin{
-    width:8rem;
-    background-color: blue;
-    color: #fff;
-    text-transform: capitalize;
-    font-size:1.6rem;
+
+.sign-up-buttons {
+  display: flex;
+  gap: 2rem;
 }
-.loggin:hover{
-    background-color:lightseagreen;
-    cursor: pointer;
+.loggin {
+  width: 8rem;
+  background-color: blue;
+  color: var(--text-color);
+  text-transform: capitalize;
+  font-size: 1.6rem;
+  border-radius: 0.9rem;
+}
+.loggin:hover {
+  background-color: lightseagreen;
+  cursor: pointer;
 }

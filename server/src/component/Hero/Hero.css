@@ -1,0 +1,52 @@
+.heros-container {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)),
+    url(../../assets/heros.jpg);
+  background-position: bottom;
+  object-fit: cover;
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.heros-title {
+  color: var(--text-color);
+  text-align: center;
+  text-transform: uppercase;
+  align-items: center;
+  letter-spacing: 1.3px;
+  font-size: 2.2rem;
+  line-height: 2;
+}
+
+.heros-details {
+  color: var(--secondary-color);
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.heros-link {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4rem;
+  margin-top: 2rem;
+}
+
+.heros-link-items {
+  background-color: var(--secondary-color);
+  padding: 1.5rem;
+  text-decoration: none;
+  color: var(--text-color);
+  font-size: 1.5rem;
+  border-radius: 0.4rem;
+  text-transform: capitalize;
+}
+
+.heros-link-items:hover {
+  background-color: var(--primary-btn-color);
+  cursor: pointer;
+  transition: 0.3s;
+}

@@ -7,7 +7,7 @@ import ExploreBlog from "./pages/ExploreBlog/ExploreBlog";
 import MyBlogs from "./pages/MyBlogs/MyBlogs";
 import Profile from "./pages/MyProfile/Profile";
 import Login from "./component/Login/Login";
-import Signup from "./component/SignUp/SignUp";
+import SignUp from "./component/SignUp/SignUp";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
         <Route path="/explore" element={<ExploreBlog />} />
         <Route path="/blogs" element={<MyBlogs />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/" element={<Signup />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>

@@ -7,6 +7,9 @@ function Header() {
       <div className="header-content">
         <h2 className="header-logo">blogit</h2>
         <nav className="navigation-items">
+          <Link className="nav-lists" to="/">
+            Home
+          </Link>
           <Link className="nav-lists" to="/write">
             write blog
           </Link>

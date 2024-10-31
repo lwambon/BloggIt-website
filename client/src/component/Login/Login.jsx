@@ -5,7 +5,7 @@ function Login() {
     <div className="loggin-section">
       <div className="login-container">
         <form action="" className="login-details">
-          <label htmlFor="firstname"></label>
+          <label htmlFor="firstname">firstname</label>
         </form>
       </div>
     </div>

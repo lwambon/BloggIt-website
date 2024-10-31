@@ -23,8 +23,12 @@ function Header() {
           </a>
         </nav>
         <div className="sign-up-buttons">
-          <button className="loggin">sign up</button>
-          <button className="loggin">login</button>
+          <button className="loggin">
+            <a href="">sign up</a>
+          </button>
+          <button className="loggin">
+            <a href="">login</a>
+          </button>
         </div>
       </div>
     </div>

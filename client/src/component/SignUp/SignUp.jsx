@@ -2,6 +2,8 @@ import "./SignUp.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SignUp() {
   const [firstName, setFirstName] = useState("");
@@ -14,7 +16,7 @@ function SignUp() {
 
   const navigate = useNavigate();
 
-  const { mutate, isloading } = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationFn: async (newUser) => {
       const response = await fetch("http://localhost:4000/users", {
         method: "POST",
@@ -27,13 +29,30 @@ function SignUp() {
         const error = await response.json();
         throw new Error(error.message);
       }
-      const data = response.json();
-      return data;
+      return response.json();
     },
     onSuccess: () => {
+      toast.success("Signup successful!", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+      });
       navigate("/login");
     },
     onError: (error) => {
+      toast.error(error.message || "Something went wrong!", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+      });
       setFormError(error.message || "Something went wrong!");
     },
   });
@@ -44,7 +63,6 @@ function SignUp() {
       setFormError("Passwords do not match");
       return;
     }
-
     mutate({
       firstName,
       lastName,
@@ -56,6 +74,7 @@ function SignUp() {
 
   return (
     <div className="loggin-section">
+      <ToastContainer />
       <div className="login-container">
         <h2>Create your account here</h2>
         <form onSubmit={handleSubmit} className="login-details">
@@ -134,8 +153,8 @@ function SignUp() {
           {formError && <p className="error-text">{formError}</p>}
 
           <div className="login-submit">
-            <button type="submit" disabled={isloading}>
-              {isloading ? "Loading, please wait..." : "Sign Up"}
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? "Loading, please wait..." : "Sign Up"}
             </button>
           </div>
           <p className="login-text">

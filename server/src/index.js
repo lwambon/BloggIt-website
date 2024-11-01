@@ -38,7 +38,7 @@ app.post("/users", async (req, res) => {
       return;
     }
 
-    const userWithEmail = await client.user.FindFirst({
+    const userWithEmail = await Client.users.findFirst({
       where: { emailAddress: emailAddress },
     });
     if (userWithEmail) {
@@ -46,7 +46,7 @@ app.post("/users", async (req, res) => {
       return;
     }
 
-    const userWithuserName = await client.user.FindFirst({
+    const userWithuserName = await Client.users.findFirst({
       where: { userName: userName },
     });
     if (userWithuserName) {

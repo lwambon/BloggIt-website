@@ -5,7 +5,6 @@
   height: 100vh;
   background: linear-gradient(135deg, #e4c087, #f6efbd);
 }
-
 .login-container {
   width: 60%;
   max-width: 45rem;
@@ -17,7 +16,7 @@
 }
 
 .login-container h2 {
-  color: var(--primary-color);
+  color: var(--secondary-color);
   font-size: 2rem;
   margin-bottom: 1.5rem;
   text-transform: capitalize;
@@ -44,11 +43,6 @@ input {
   border-radius: 0.5rem;
   font-size: 1.2rem;
   color: var(--primary-color);
-}
-
-input:focus {
-  border-color: #4c9be8;
-  outline: none;
 }
 
 .login-submit {

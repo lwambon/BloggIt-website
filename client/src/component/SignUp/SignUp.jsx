@@ -76,6 +76,7 @@ function SignUp() {
     <div className="loggin-section">
       <ToastContainer />
       <div className="login-container">
+        <div className="signUp-heading"></div>
         <h2>Create your account here</h2>
         <form onSubmit={handleSubmit} className="login-details">
           <div className="inputs-details">

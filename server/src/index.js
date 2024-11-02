@@ -1,6 +1,7 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import { PrismaClient } from "@prisma/client";
+import jwt from "jsonwebtoken";
 import cors from "cors";
 
 const app = express();
@@ -67,6 +68,39 @@ app.post("/users", async (req, res) => {
     res.status(200).json(newUser);
   } catch (e) {
     res.status(500).json({ message: "something went wrong" });
+  }
+});
+
+//login users in
+app.post("/auth/login", async (req, res) => {
+  try {
+    const { emailAddress, password } = req.body;
+    console.log(`Email: ${emailAddress}, Password: ${password}`);
+
+    const user = await Client.users.findFirst({
+      where: { emailAddress: emailAddress },
+    });
+
+    if (!user) {
+      return res
+        .status(401)
+        .json({ message: "Wrong email address or password" });
+    }
+
+    const passwordsMatch = await bcrypt.compare(password, user.password);
+
+    if (!passwordsMatch) {
+      return res
+        .status(401)
+        .json({ message: "Wrong email address or password" });
+    }
+
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+
+    //send response as cookie
+    res.status(200).cookie("authToken", token, { httpOnly: true }).json(user);
+  } catch (e) {
+    res.status(500).json({ message: "Something went wrong, try again later" });
   }
 });
 

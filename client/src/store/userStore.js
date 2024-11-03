@@ -1,4 +1,5 @@
 import { create } from "zustand";
+
 import { devtools, persist } from "zustand/middleware";
 
 function userState(set) {
@@ -22,7 +23,7 @@ function userState(set) {
 }
 
 const useUserState = create(
-  devtools(persist(userState, { name: "auth-storage" })), // Ensure `userState` matches here
+  devtools(persist(userState, { name: "auth-storage" })),
 );
 
 export default useUserState;

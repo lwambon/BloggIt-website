@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import UserState from "../../store/userStore";
 
 function Login() {
-  const [emailAddress, setEmailAddress] = useState("");
+  const [userNameOrEmailAddress, setUserNameOrEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const setUser = UserState((state) => state.setUser);
@@ -45,8 +45,8 @@ function Login() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (!emailAddress) {
-      toast.error("Email Address is required", {
+    if (!userNameOrEmailAddress) {
+      toast.error("Username or Email Address is required", {
         theme: "colored",
         autoClose: 3000,
       });
@@ -61,7 +61,7 @@ function Login() {
       return;
     }
 
-    mutate({ emailAddress, password });
+    mutate({ userNameOrEmailAddress, password });
   }
 
   return (
@@ -70,14 +70,14 @@ function Login() {
         <h2>Welcome Back</h2>
         <form onSubmit={handleSubmit} className="signup-details">
           <div className="inputs-details">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="userNameOrEmail">Username or EmailAddress</label>
             <input
-              type="email"
-              id="email"
-              placeholder="Email"
+              type="text"
+              id="userNameOrEmail"
+              placeholder="Username or Email"
               required
-              value={emailAddress}
-              onChange={(e) => setEmailAddress(e.target.value)}
+              value={userNameOrEmailAddress}
+              onChange={(e) => setUserNameOrEmailAddress(e.target.value)}
             />
           </div>
 

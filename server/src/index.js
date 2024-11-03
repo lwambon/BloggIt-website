@@ -11,6 +11,7 @@ app.use(
   cors({
     origin: "http://localhost:5173",
     methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
+    credentials: true,
   }),
 );
 const Client = new PrismaClient();
@@ -74,30 +75,30 @@ app.post("/users", async (req, res) => {
 //login users in
 app.post("/auth/login", async (req, res) => {
   try {
-    const { emailAddress, password } = req.body;
+    const emailAddress = req.body.emailAddress;
+    const password = req.body.password;
     console.log(`Email: ${emailAddress}, Password: ${password}`);
 
+    //query database against email
     const user = await Client.users.findFirst({
       where: { emailAddress: emailAddress },
     });
 
+    //if user does not exist,
     if (!user) {
-      return res
-        .status(401)
-        .json({ message: "Wrong email address or password" });
+      res.status(401).json({ message: "Wrong email address or password" });
+      return;
     }
 
     const passwordsMatch = await bcrypt.compare(password, user.password);
 
     if (!passwordsMatch) {
-      return res
-        .status(401)
-        .json({ message: "Wrong email address or password" });
+      res.status(401).json({ message: "Wrong email address or password" });
+      return;
     }
 
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+    const token = jwt.sign(user.id, process.env.JWT_SECRET);
 
-    //send response as cookie
     res.status(200).cookie("authToken", token, { httpOnly: true }).json(user);
   } catch (e) {
     res.status(500).json({ message: "Something went wrong, try again later" });

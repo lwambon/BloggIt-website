@@ -20,6 +20,18 @@ model Users{
   userName String @unique 
   emailAddress String @unique 
   password String
+  blog Blogs []
 
   @@map ("users")
+}
+
+model Blogs{
+  id String @default (uuid()) @id
+  BlogTitle String
+  synopsis String
+  body String
+  CreatedAt DateTime @default (now())
+  UpdatedAt DateTime @updatedAt 
+  owner String
+  user Users @relation(fields : [owner] ,references:[id])
 }

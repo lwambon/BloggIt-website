@@ -1,54 +1,52 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
 import "./WriteBlog.css";
 
 function WriteBlog() {
   const [BlogTitle, setBlogTitle] = useState("");
-  const [blogTitleLength, setBlogTitleLength] = useState(0);
   const [synopsis, setSynopsis] = useState("");
-  const [synopsisLength, setSynopsisLength] = useState(0);
   const [body, setBody] = useState("");
-  const [bodyLength, setBodyLength] = useState(0);
   const [uploadImage, setUploadImage] = useState("");
   const [visibility, setVisibility] = useState("");
-  const [visibilityExplanation, setVisibilityExplanation] = useState("");
+  const visibilityExplanation = useState("");
+  const navigate = useNavigate();
 
-  const mutation = useMutation((newBlog) => {
-    return fetch("/api/blogs", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newBlog),
-    });
+  const { mutate, isLoading } = useMutation({
+    mutationFn: async (blogs) => {
+      const response = await fetch("http://localhost:4000/blogs", {
+        method: "POST",
+        body: JSON.stringify(blogs),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+
+      if (response.ok === false) {
+        const error = await response.json();
+        throw new Error(error.message);
+      }
+
+      const data = await response.json();
+      return data;
+    },
+    onSuccess: () => {
+      navigate("/blogs");
+      toast.success("notes written successfully", {
+        theme: "colored",
+        autoClose: 3000,
+      });
+    },
+    onError: (error) => {
+      toast.error(error.message || "An error occured while creating the blog", {
+        theme: "colored",
+        autoClose: 3000,
+      });
+    },
   });
-
-  useEffect(() => {
-    setBlogTitleLength(BlogTitle.length);
-  }, [BlogTitle]);
-
-  useEffect(() => {
-    setSynopsisLength(synopsis.length);
-  }, [synopsis]);
-
-  useEffect(() => {
-    setBodyLength(body.length);
-  }, [body]);
-
-  useEffect(() => {
-    if (visibility === "public") {
-      setVisibilityExplanation(
-        "Everyone will see and read your blog but won't be able to edit it",
-      );
-      return;
-    }
-    if (visibility === "private") {
-      setVisibilityExplanation(
-        "Only you will be able to see the blog you've created",
-      );
-      return;
-    }
-    setVisibilityExplanation("");
-  }, [visibility]);
 
   function handleChangeVisibility(e) {
     setVisibility(e.target.value);
@@ -56,46 +54,6 @@ function WriteBlog() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!BlogTitle) {
-      toast.error("Title is required", {
-        duration: 3000,
-        position: "top-center",
-      });
-      return;
-    }
-
-    if (!synopsis) {
-      toast.error("Synopsis is required", {
-        duration: 3000,
-        position: "top-center",
-      });
-      return;
-    }
-
-    if (!body) {
-      toast.error("Body is required", {
-        duration: 3000,
-        position: "top-center",
-      });
-      return;
-    }
-
-    if (!uploadImage) {
-      toast.error("Image is required", {
-        duration: 3000,
-        position: "top-center",
-      });
-      return;
-    }
-
-    if (!visibility) {
-      toast.error("Visibility is required", {
-        duration: 3000,
-        position: "top-center",
-      });
-      return;
-    }
-
     const blogs = {
       BlogTitle,
       synopsis,
@@ -104,7 +62,7 @@ function WriteBlog() {
       visibility,
     };
 
-    mutation.mutate(blogs);
+    mutate(blogs);
   }
 
   return (
@@ -177,9 +135,9 @@ function WriteBlog() {
           <button
             className="submit-writtenblog"
             onClick={handleSubmit}
-            disabled={mutation.isLoading}
+            disabled={isLoading}
           >
-            Create Blog
+            {isLoading ? "Loading, please wait..." : "Create Blog"}
           </button>
         </div>
       </div>

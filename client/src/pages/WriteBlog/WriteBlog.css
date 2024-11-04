@@ -59,12 +59,13 @@
 
 .submit-writtenblog {
   padding: 0.8rem;
-  font-size: 1.6rem;
+  font-size: 1.9rem;
   color: #fff;
   background-color: #007bff;
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
+  text-transform: capitalize;
   transition: background-color 0.3s ease;
   width: max-content;
   align-items: center;

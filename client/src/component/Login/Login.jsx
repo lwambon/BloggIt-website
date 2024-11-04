@@ -40,6 +40,12 @@ function Login() {
         autoClose: 3000,
       });
     },
+    onError: (error) => {
+      toast.error(error.message || "An error occurred during login", {
+        theme: "colored",
+        autoClose: 3000,
+      });
+    },
   });
 
   function handleSubmit(e) {
@@ -61,7 +67,18 @@ function Login() {
       return;
     }
 
-    mutate({ userNameOrEmailAddress, password });
+    // Prepare user object to send to the backend
+    const userObj = {
+      userName: userNameOrEmailAddress.includes("@")
+        ? undefined
+        : userNameOrEmailAddress,
+      emailAddress: userNameOrEmailAddress.includes("@")
+        ? userNameOrEmailAddress
+        : undefined,
+      password,
+    };
+
+    mutate(userObj);
   }
 
   return (
@@ -70,7 +87,7 @@ function Login() {
         <h2>Welcome Back</h2>
         <form onSubmit={handleSubmit} className="signup-details">
           <div className="inputs-details">
-            <label htmlFor="userNameOrEmail">Username or EmailAddress</label>
+            <label htmlFor="userNameOrEmail">Username or Email Address</label>
             <input
               type="text"
               id="userNameOrEmail"

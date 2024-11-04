@@ -1,12 +1,16 @@
 import jwt from "jsonwebtoken";
-function verifyToken(res, req, next) {
+
+function verifyToken(req, res, next) {
   const { authToken } = req.cookies;
-  jwtverify(authToken, process.env.JWT_SECRET, (error, decoded) => {
+
+  jwt.verify(authToken, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
-      res.status(401).json({ message: "unauthorized person" });
+      res.status(401).json({ message: "Unauthorized: Invalid token" });
+      return;
     }
+    req.userId = decoded.id;
+    next();
   });
-  next();
 }
 
 export default verifyToken;

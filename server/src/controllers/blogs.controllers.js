@@ -1,7 +1,24 @@
-export function createBlog(req, res) {
+import { PrismaClient } from "@prisma/client";
+
+const client = new PrismaClient();
+
+export async function createBlog(req, res) {
   try {
-    res.status(200).json({ message: "creating a blog" });
+    const { BlogTitle, synopsis, body, visibility } = req.body;
+    const userId = req.userId;
+
+    const newBlog = await client.blogs.create({
+      data: {
+        BlogTitle,
+        synopsis,
+        body,
+        visibility,
+        owner: userId,
+      },
+    });
+    res.status(201).json(newBlog);
   } catch (e) {
-    res.status(500).json({ message: "something went wrong try again later" });
+    console.log(e.message);
+    res.status(500).json({ message: "Something went wrong, try again later" });
   }
 }

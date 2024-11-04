@@ -1,8 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 
-const Client = new PrismaClient();
-async function validateUserInfo(res, req, next) {
-  const { firstName, lastName, userName, emailAddress, password } = res.body;
+const client = new PrismaClient();
+
+async function validateUserInfo(req, res, next) {
+  const { firstName, lastName, userName, emailAddress, password } = req.body;
+
   if (!firstName) {
     res.status(400).json({ message: "First name is required" });
     return;
@@ -24,7 +26,8 @@ async function validateUserInfo(res, req, next) {
     return;
   }
 
-  const userWithEmail = await Client.users.findFirst({
+  // Check if email address is already in use
+  const userWithEmail = await client.users.findFirst({
     where: { emailAddress: emailAddress },
   });
   if (userWithEmail) {
@@ -32,7 +35,8 @@ async function validateUserInfo(res, req, next) {
     return;
   }
 
-  const userWithUserName = await Client.users.findFirst({
+  // Check if user name is already in use
+  const userWithUserName = await client.users.findFirst({
     where: { userName: userName },
   });
   if (userWithUserName) {

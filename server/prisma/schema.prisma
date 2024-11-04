@@ -30,6 +30,7 @@ model Blogs{
   BlogTitle String
   synopsis String
   body String
+  visibility String
   CreatedAt DateTime @default (now())
   UpdatedAt DateTime @updatedAt 
   owner String

@@ -1,0 +1,50 @@
+.preview-section-details {
+  width: 40rem;
+  border-radius: 0.6rem;
+  box-shadow: 0 0 7px;
+}
+.preview-title {
+  background-color: var(--secondary-txt-color);
+}
+.preview-blogtitle {
+  text-transform: uppercase;
+  margin: 0.6rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.previewbody {
+  background-color: #fff;
+}
+
+.preview-synopsis {
+  font-size: 1.5rem;
+  line-height: 1.3;
+  padding: 1rem;
+}
+
+.preview-auther {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.preview-user {
+  margin-left: 0.6rem;
+}
+
+.auther-name {
+  font-size: 1rem;
+  text-transform: capitalize;
+}
+.image {
+  border-radius: 10rem;
+  font-size: 2rem;
+}
+
+.preview-button {
+  width: 10rem;
+  font-size: 1.5rem;
+  margin: 0.5rem;
+}

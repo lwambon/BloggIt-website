@@ -3,22 +3,33 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: 1.5rem;
+  padding: 1.2rem;
+  background-color: #24360d;
 }
 .header-logo {
   text-transform: uppercase;
-  font-size: 1.9rem;
+  font-size: 2rem;
+  color: var(--primary-btn-color);
+}
+.header-logo span {
+  font-size: 3.5rem;
+  padding-right: 1.5rem;
 }
 
 .nav-lists {
   list-style: none;
   text-decoration: none;
   padding: 3rem;
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   text-transform: capitalize;
-  color: #000;
+  color: var(--secondary-color);
 }
 
+.nav-lists:hover {
+  color: var(--primary-btn-color);
+  cursor: pointer;
+  transition: 0.3s;
+}
 .sign-up-buttons {
   display: flex;
   gap: 2rem;

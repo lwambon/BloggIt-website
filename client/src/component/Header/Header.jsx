@@ -1,11 +1,18 @@
 import "./Header.css";
+import { FaBloggerB } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 function Header() {
   return (
     <div className="header-section">
       <div className="header-content">
-        <h2 className="header-logo">blogit</h2>
+        <h2 className="header-logo">
+          {" "}
+          <span>
+            <FaBloggerB />
+          </span>
+          blogit
+        </h2>
         <nav className="navigation-items">
           <Link className="nav-lists" to="/">
             Home

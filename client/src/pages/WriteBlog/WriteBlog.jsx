@@ -11,7 +11,7 @@ function WriteBlog() {
   const [body, setBody] = useState("");
   const [uploadImage, setUploadImage] = useState("");
   const [visibility, setVisibility] = useState("");
-  const visibilityExplanation = useState("");
+  const [visibilityExplanation, setVisibilityExplanation] = useState("");
   const navigate = useNavigate();
 
   const { mutate, isLoading } = useMutation({
@@ -33,23 +33,31 @@ function WriteBlog() {
       const data = await response.json();
       return data;
     },
-    onSuccess: () => {
-      navigate("/blogs");
-      toast.success("notes written successfully", {
+    onSuccess: (data) => {
+      navigate(`/blogs/${data.id}`);
+      toast.success("Notes written successfully", {
         theme: "colored",
         autoClose: 3000,
       });
     },
     onError: (error) => {
-      toast.error(error.message || "An error occured while creating the blog", {
-        theme: "colored",
-        autoClose: 3000,
-      });
+      toast.error(
+        error.message || "An error occurred while creating the blog",
+        {
+          theme: "colored",
+          autoClose: 3000,
+        },
+      );
     },
   });
 
   function handleChangeVisibility(e) {
     setVisibility(e.target.value);
+    setVisibilityExplanation(
+      e.target.value === "public"
+        ? "Your blog will be visible to everyone."
+        : "Only you can see this blog.",
+    );
   }
 
   function handleSubmit(e) {
@@ -69,7 +77,7 @@ function WriteBlog() {
     <div className="writing-section">
       <div className="writing-container">
         <h2 className="writing-title">
-          Start your journey now by creating a blog..
+          Start your journey now by creating a blog...
         </h2>
         <div className="writing-content">
           <div className="input">

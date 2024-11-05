@@ -34,7 +34,7 @@ function Login() {
     },
     onSuccess: (user) => {
       setUser(user);
-      navigate("/profile");
+      navigate("/write");
       toast.success("Logged in successfully", {
         theme: "colored",
         autoClose: 3000,

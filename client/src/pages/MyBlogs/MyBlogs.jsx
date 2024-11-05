@@ -5,25 +5,25 @@ import "./MyBlogs.css";
 function MyBlogs() {
   const { id } = useParams();
 
-  const { data, isLoading, isError, error } = useQuery({
+  const { isLoading, isError, error, data } = useQuery({
     queryKey: ["blog", id],
     queryFn: async () => {
-      const token = localStorage.getItem("token");
-
       const response = await fetch(`http://localhost:4000/blogs/${id}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
         credentials: "include",
       });
+
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message);
+        const errorData = await response.json();
+        throw new Error(
+          errorData.message || "An error occurred while fetching the blog.",
+        );
       }
 
       const data = await response.json();
+      console.log(data);
       return data;
+
+      //return response.json();
     },
   });
 
@@ -36,12 +36,17 @@ function MyBlogs() {
   }
 
   return (
-    <div className="MyBlogs-section">
-      <div className="myblogs-container">
-        <h2 className="myblogs-title">{data.BlogTitle}</h2>
-        <p className="blogs-sub-heading">{data.synopsis}</p>
-        <p className="data-body">{data.body}</p>
+    <div className="myblogs-container">
+      <h2 className="myblogs-title">{data.BlogTitle}</h2>
+      <div className="authors-info">
+        <p>
+          Auther: {data.user.firstName} {data.user.lastName}
+        </p>
+        <p>Date Created:{new Date(data.CreatedAt).toDateString()}</p>
+        <p>Updated Created:{new Date(data.UpdatedAt).toDateString()}</p>
       </div>
+      <p className="blogs-sub-heading">{data.synopsis}</p>
+      <p className="data-body">{data.body}</p>
     </div>
   );
 }

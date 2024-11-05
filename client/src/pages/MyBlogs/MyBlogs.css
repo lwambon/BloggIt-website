@@ -3,8 +3,8 @@
   flex-wrap: wrap;
 }
 .myblogs-container {
-  width: 45%;
-  margin: auto;
+  width: 60%;
+  margin: 1.5rem auto;
   align-items: center;
   box-shadow: 0 0 1px;
   border: 1px solid var(--primary-btn-color);
@@ -17,11 +17,17 @@
   color: var(--secondary-color);
 }
 
+.authors-info {
+  padding-left: 2rem;
+  line-height: 1.6;
+}
+
 .blogs-sub-heading {
-  margin-bottom: 1.2rem;
+  margin: 1.2rem 0;
   font-size: 1.2rem;
   text-align: justify;
   padding: 0 2rem;
+  line-height: 1.4;
 }
 
 .data-body {

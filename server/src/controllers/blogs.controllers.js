@@ -22,3 +22,23 @@ export async function createBlog(req, res) {
     res.status(500).json({ message: "Something went wrong, try again later" });
   }
 }
+
+export async function fetchingSingleBlog(req, res) {
+  try {
+    const { id } = req.params;
+
+    const blog = await client.blogs.findFirst({
+      where: { id },
+      include: { user: true },
+    });
+
+    if (!blog) {
+      return res.status(404).json({ message: "Blog not found" });
+    }
+
+    res.status(200).json(blog);
+  } catch (e) {
+    console.error(e.message);
+    res.status(500).json({ message: "Something went wrong, try again later" });
+  }
+}

@@ -7,6 +7,7 @@ import validateUserInfo from "./middleware/validateUserInformation.js";
 import {
   createBlog,
   fetchingSingleBlog,
+  fetchingAllBlogs,
 } from "./controllers/blogs.controllers.js";
 import verifyToken from "./middleware/verifyToken.js";
 import validateBlog from "./middleware/validateBlog.js";
@@ -32,8 +33,9 @@ app.post("/auth/login", loginUsers);
 //creating a blog
 app.post("/blogs", verifyToken, validateBlog, createBlog);
 //fetching a single note
-
 app.get("/blogs/:id", verifyToken, fetchingSingleBlog);
+//fetching all notes
+app.get("/blogs", verifyToken, fetchingAllBlogs);
 
 app.listen(4000, () => {
   console.log("Server running successfully");

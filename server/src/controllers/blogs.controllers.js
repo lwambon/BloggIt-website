@@ -42,3 +42,18 @@ export async function fetchingSingleBlog(req, res) {
     res.status(500).json({ message: "Something went wrong, try again later" });
   }
 }
+
+export async function fetchingAllBlogs(req, res) {
+  try {
+    const blog = await client.blogs.findMany({
+      where: { visibility: "public" },
+      include: { user: true },
+    });
+    res.status(200).json(blog);
+  } catch (e) {
+    console.error("Error fetching blogs:", error);
+    res
+      .status(500)
+      .json({ message: "Something went wrong, please try again later" });
+  }
+}

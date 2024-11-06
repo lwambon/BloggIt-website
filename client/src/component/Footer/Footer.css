@@ -1,0 +1,11 @@
+.footer-section {
+  background-color: #333;
+  padding: 2rem;
+}
+
+.footer-details {
+  text-align: center;
+  text-transform: capitalize;
+  color: var(--text-color);
+  font-size: 1.5rem;
+}

@@ -3,7 +3,7 @@
     url(../../assets/heros.jpg);
   background-position: cover;
   object-fit: cover;
-  height: 100vh;
+  height: 90vh;
   align-items: center;
   justify-content: center;
   display: flex;

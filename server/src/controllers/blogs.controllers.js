@@ -57,3 +57,17 @@ export async function fetchingAllBlogs(req, res) {
       .json({ message: "Something went wrong, please try again later" });
   }
 }
+
+export async function getUsersBlogs(req, res) {
+  try {
+    const userId = req.userId;
+    const blog = await client.blogs.findMany({
+      where: { owner: userId },
+    });
+    res.send(blog);
+  } catch (e) {
+    res
+      .status(400)
+      .json({ message: "Something went wrong, please try again later" });
+  }
+}

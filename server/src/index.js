@@ -8,6 +8,7 @@ import {
   createBlog,
   fetchingSingleBlog,
   fetchingAllBlogs,
+  getUsersBlogs,
 } from "./controllers/blogs.controllers.js";
 import verifyToken from "./middleware/verifyToken.js";
 import validateBlog from "./middleware/validateBlog.js";
@@ -32,6 +33,8 @@ app.post("/users", validateUserInfo, signinUser);
 app.post("/auth/login", loginUsers);
 //creating a blog
 app.post("/blogs", verifyToken, validateBlog, createBlog);
+//getting users blogs
+app.get("/blogs/users", verifyToken, getUsersBlogs);
 //fetching a single note
 app.get("/blogs/:id", verifyToken, fetchingSingleBlog);
 //fetching all notes

@@ -7,7 +7,6 @@ function Header() {
     <div className="header-section">
       <div className="header-content">
         <h2 className="header-logo">
-          {" "}
           <span>
             <FaBloggerB />
           </span>

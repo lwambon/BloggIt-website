@@ -1,0 +1,46 @@
+.personal-blogs {
+  margin: 1rem;
+}
+
+.personal-blog-title {
+  font-size: 1.7rem;
+  color: #000;
+  margin-bottom: 1rem;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.create-personal-blog {
+  font-size: 1.6rem;
+  color: #000;
+  text-align: center;
+}
+.create-blog {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+  font-size: 1.6rem;
+}
+
+.create-blog:hover {
+  text-decoration: underline;
+}
+
+.personal-blog-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin: 1rem;
+}
+
+.personal-blog-list p {
+  color: #777;
+  font-size: 1.6rem;
+}
+
+h2 {
+  font-size: 1.6rem;
+  font-weight: bold;
+}

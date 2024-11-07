@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useMutation } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { useQuery, useMutation } from "react-query";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate, useParams } from "react-router-dom";
 
 import "./EditBlog.css";
 
@@ -12,16 +13,15 @@ function EditBlog() {
   const [uploadImage, setUploadImage] = useState("");
   const [visibility, setVisibility] = useState("");
   const [visibilityExplanation, setVisibilityExplanation] = useState("");
-  const navigate = useNavigate();
 
-  const { mutate, isLoading } = useMutation({
-    mutationFn: async (blogs) => {
-      const response = await fetch("http://localhost:4000/blogs", {
-        method: "POST",
-        body: JSON.stringify(blogs),
-        headers: {
-          "Content-Type": "application/json",
-        },
+  const { blogsId } = useParams();
+  console.log("Blog ID:", blogsId);
+  const redirect = useNavigate();
+
+  const { isLoading, isError, error } = useQuery({
+    queryKey: ["updateBlogs"],
+    queryFn: async () => {
+      const response = await fetch(`http://localhost:4000/blogs/${blogsId}`, {
         credentials: "include",
       });
 
@@ -34,15 +34,15 @@ function EditBlog() {
       return data;
     },
     onSuccess: (data) => {
-      navigate(`/blogs/${data.id}`);
-      toast.success("Notes written successfully", {
-        theme: "colored",
-        autoClose: 3000,
-      });
+      setBlogTitle(data.BlogTitle);
+      setSynopsis(data.synopsis);
+      setBody(data.body);
+      setUploadImage(data.uploadImage);
+      setVisibility(data.visibility);
     },
     onError: (error) => {
       toast.error(
-        error.message || "An error occurred while creating the blog",
+        error.message || "An error occurred while updating the blog",
         {
           theme: "colored",
           autoClose: 3000,
@@ -50,6 +50,45 @@ function EditBlog() {
       );
     },
   });
+
+  const { mutate, isLoading: updateIsLoading } = useMutation({
+    mutationFn: async (updateBlogs) => {
+      const response = await fetch(`http://localhost:4000/blogs/${blogsId}`, {
+        method: "PUT",
+        body: JSON.stringify(updateBlogs),
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      });
+      if (response.ok === false) {
+        const error = await response.json();
+        throw new Error(error.message);
+      }
+
+      const data = await response.json();
+      return data;
+    },
+    onSuccess: () => {
+      toast.success("Blogs updated successfully", {
+        theme: "colored",
+        autoClose: 3000,
+      });
+      redirect(`/blogs/${blogsId}`);
+    },
+    onError: (error) => {
+      toast.error(error.message, {
+        theme: "colored",
+        autoClose: 3000,
+      });
+    },
+  });
+
+  if (isLoading) {
+    return <h2 className="isloading">Loading, please wait...</h2>;
+  }
+
+  if (isError) {
+    return <h2 className="isloading">{error.message}</h2>;
+  }
 
   function handleChangeVisibility(e) {
     setVisibility(e.target.value);
@@ -76,9 +115,7 @@ function EditBlog() {
   return (
     <div className="writing-section">
       <div className="writing-container">
-        <h2 className="writing-title">
-          Start your journey now by creating a blog...
-        </h2>
+        <h2 className="writing-title">Update your Blog...</h2>
         <div className="writing-content">
           <div className="input">
             <label htmlFor="blog-title">Blog Title</label>
@@ -143,9 +180,9 @@ function EditBlog() {
           <button
             className="submit-writtenblog"
             onClick={handleSubmit}
-            disabled={isLoading}
+            disabled={updateIsLoading}
           >
-            {isLoading ? "Loading, please wait..." : "Create Blog"}
+            {updateIsLoading ? "Loading, please wait..." : "Update Blog"}
           </button>
         </div>
       </div>

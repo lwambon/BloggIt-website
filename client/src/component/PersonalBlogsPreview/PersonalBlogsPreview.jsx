@@ -42,7 +42,7 @@ function PersonalBlogsPreview() {
 
       <h3 className="create-personal-blog">
         You don't have any blogs yet?{" "}
-        <Link to="/WritePage" className="create-blog">
+        <Link to="/write" className="create-blog">
           Click to create one
         </Link>
       </h3>

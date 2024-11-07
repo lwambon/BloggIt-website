@@ -35,9 +35,6 @@ function SignUp() {
       toast.success("Signup successful!", {
         position: "bottom-center",
         autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
         draggable: true,
         theme: "colored",
       });
@@ -61,6 +58,11 @@ function SignUp() {
     e.preventDefault();
     if (password !== confirmPassword) {
       setFormError("Passwords do not match");
+      toast.error("Passwords do not match", {
+        position: "bottom-center",
+        autoClose: 3000,
+        theme: "colored",
+      });
       return;
     }
     mutate({

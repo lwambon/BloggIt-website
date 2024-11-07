@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import UserState from "../../store/userStore";
 
 function Login() {

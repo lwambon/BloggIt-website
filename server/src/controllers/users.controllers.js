@@ -22,3 +22,22 @@ export const signinUser = async (req, res) => {
     res.status(500).json({ message: "Something went wrong" });
   }
 };
+
+export const updateUserInformation = async (req, res) => {
+  try {
+    const { firstName, lastName, userName, emailAddress, profilePicture } =
+      req.body;
+    const userId = req.userId;
+    console.log(userId);
+    const user = await Client.users.update({
+      where: {
+        id: userId,
+      },
+      data: { firstName, lastName, userName, emailAddress, profilePicture },
+    });
+    res.status(200).json(user);
+  } catch (e) {
+    console.log(e.message);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};

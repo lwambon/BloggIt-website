@@ -1,7 +1,10 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import { signinUser } from "./controllers/users.controllers.js";
+import {
+  signinUser,
+  updateUserInformation,
+} from "./controllers/users.controllers.js";
 import { loginUsers } from "./controllers/auth.controllers.js";
 import validateUserInfo from "./middleware/validateUserInformation.js";
 import {
@@ -31,6 +34,8 @@ app.use(cookieParser());
 //signin in users
 app.post("/users", validateUserInfo, signinUser);
 
+//updating users information
+app.put("/users", verifyToken, updateUserInformation);
 // Login users
 app.post("/auth/login", loginUsers);
 //creating a blog

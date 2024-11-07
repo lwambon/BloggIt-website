@@ -15,6 +15,7 @@ datasource db {
 
 model Users{
   id String @default (uuid()) @id
+  profilePicture String? 
   firstName String 
   lastName String
   userName String @unique 
@@ -28,6 +29,7 @@ model Users{
 model Blogs{
   id String @default (uuid()) @id
   BlogTitle String
+  BlogsImage String?
   synopsis String
   body String
   visibility String

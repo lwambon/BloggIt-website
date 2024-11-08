@@ -1,8 +1,10 @@
 .exploreblogs-container {
-  margin: 1.5rem auto;
+  margin: auto;
   align-items: center;
   justify-content: center;
   display: flex;
   flex-wrap: wrap;
   gap: 2.5rem;
+  background-color: #ede8dc;
+  padding: 1.5rem;
 }

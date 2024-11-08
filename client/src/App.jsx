@@ -12,7 +12,6 @@ import Profile from "./pages/MyProfile/Profile";
 import Login from "./component/Login/Login";
 import SignUp from "./component/SignUp/SignUp";
 import EditBlog from "./pages/EditBlog/EditBlog";
-import Footer from "./component/Footer/Footer";
 
 const client = new QueryClient();
 
@@ -47,7 +46,6 @@ function App() {
         {/* <Header /> */}
         {/* <Navbar/> */}
         <Main />
-        <Footer />
       </BrowserRouter>
     </QueryClientProvider>
   );

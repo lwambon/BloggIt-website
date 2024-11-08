@@ -1,13 +1,16 @@
-.MyBlogs-section {
+.myblogs-section {
   display: flex;
   flex-wrap: wrap;
+  padding: 3rem 0;
+  height: 100%;
+  background-color: #ede8dc;
 }
 .myblogs-container {
   width: 60%;
   margin: 1.5rem auto;
   align-items: center;
-  box-shadow: 0 0 1px;
-  border: 1px solid var(--primary-btn-color);
+  box-shadow: 0 0 4px;
+  padding: 1rem;
 }
 
 .myblogs-title {

@@ -1,6 +1,7 @@
 .footer-section {
   background-color: #333;
   padding: 2rem;
+  bottom: 0;
 }
 
 .footer-details {

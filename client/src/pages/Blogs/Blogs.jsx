@@ -6,7 +6,7 @@ function Blogs() {
   return (
     <div>
       <Navbar />
-      <div>
+      <div className="blogs-container">
         <PersonalBlogsPreview />
       </div>
     </div>

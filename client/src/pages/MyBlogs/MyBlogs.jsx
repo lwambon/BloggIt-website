@@ -40,17 +40,19 @@ function MyBlogs() {
   return (
     <div>
       <Navbar />
-      <div className="myblogs-container">
-        <h2 className="myblogs-title">{data.BlogTitle}</h2>
-        <div className="authors-info">
-          <p>
-            Auther: {data.user.firstName} {data.user.lastName}
-          </p>
-          <p>Date Created:{new Date(data.CreatedAt).toDateString()}</p>
-          <p>Updated Created:{new Date(data.UpdatedAt).toDateString()}</p>
+      <div className="myblogs-section">
+        <div className="myblogs-container">
+          <h2 className="myblogs-title">{data.BlogTitle}</h2>
+          <div className="authors-info">
+            <p>
+              Auther: {data.user.firstName} {data.user.lastName}
+            </p>
+            <p>Date Created:{new Date(data.CreatedAt).toDateString()}</p>
+            <p>Updated Created:{new Date(data.UpdatedAt).toDateString()}</p>
+          </div>
+          <p className="blogs-sub-heading">{data.synopsis}</p>
+          <p className="data-body">{data.body}</p>
         </div>
-        <p className="blogs-sub-heading">{data.synopsis}</p>
-        <p className="data-body">{data.body}</p>
       </div>
     </div>
   );

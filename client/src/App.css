@@ -8,6 +8,7 @@ html {
 }
 body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  height: 100%;
 }
 
 :root {

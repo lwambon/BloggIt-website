@@ -1,8 +1,11 @@
-//import React, { useContext } from "react";
 import { FaBloggerB } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import useUserState from "../../store/userStore";
+import "./Navbar.css";
 
 function Navbar() {
+  const { user } = useUserState();
+
   return (
     <div>
       <div className="header-content">
@@ -29,6 +32,12 @@ function Navbar() {
             <Link className="nav-lists" to="/profile">
               My Profile
             </Link>
+
+            {user && user.firstname && (
+              <Link className="nav-lists" to="/user">
+                Hello {user.firstname}
+              </Link>
+            )}
           </nav>
         </div>
       </div>

@@ -2,6 +2,7 @@ import "./ExploreBlogs.css";
 import { useQuery } from "react-query";
 import apiBase from "../../utils/apiBase";
 import BlogsPreview from "../../component/BlogsPreview/BlogsPreview";
+import Navbar from "../../component/Navbar/Navbar";
 
 function ExploreBlog() {
   const { isLoading, isError, error, data } = useQuery({
@@ -32,17 +33,20 @@ function ExploreBlog() {
   }
 
   return (
-    <div className="explore-blogs-section">
-      <div className="exploreblogs-container">
-        {data.map((blog) => (
-          <BlogsPreview
-            key={blog.id}
-            BlogTitle={blog.BlogTitle}
-            synopsis={blog.synopsis}
-            autherName={`${blog.user.firstName} ${blog.user.lastName}`}
-            id={blog.id}
-          />
-        ))}
+    <div>
+      <Navbar />
+      <div className="explore-blogs-section">
+        <div className="exploreblogs-container">
+          {data.map((blog) => (
+            <BlogsPreview
+              key={blog.id}
+              BlogTitle={blog.BlogTitle}
+              synopsis={blog.synopsis}
+              autherName={`${blog.user.firstName} ${blog.user.lastName}`}
+              id={blog.id}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

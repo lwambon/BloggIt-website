@@ -1,16 +1,18 @@
-.header-content {
+.navigation-content-link {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   padding: 1.2rem;
-  background-color: #24360d;
+  background-color: #24360d; /* Your background color */
 }
+
 .header-logo {
   text-transform: uppercase;
   font-size: 2rem;
   color: var(--primary-btn-color);
 }
+
 .header-logo span {
   font-size: 3.5rem;
   padding-right: 1.5rem;
@@ -30,21 +32,25 @@
   cursor: pointer;
   transition: 0.3s;
 }
+
 .sign-up-buttons {
   display: flex;
-  gap: 2rem;
+  gap: 2rem; /* Space between buttons */
 }
+
 .loggin {
   width: 10rem;
-  background-color: var(--primary-btn-color);
-  color: var(--text-color);
+  background-color: var(--primary-btn-color); /* Main button color */
+  color: var(--text-color); /* Text color */
   text-transform: capitalize;
   font-size: 1.6rem;
   border-radius: 0.9rem;
   text-decoration: none;
   padding: 0.8rem;
 }
+
 .loggin:hover {
-  background-color: var(--secondary-color);
+  background-color: var(--secondary-color); /* Hover color */
   cursor: pointer;
+  transition: 0.3s;
 }

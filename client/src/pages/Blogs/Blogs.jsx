@@ -1,10 +1,14 @@
 import "./Blog.css";
 import PersonalBlogsPreview from "../../component/PersonalBlogsPreview/PersonalBlogsPreview";
+import Navbar from "../../component/Navbar/Navbar";
 
 function Blogs() {
   return (
     <div>
-      <PersonalBlogsPreview />
+      <Navbar />
+      <div>
+        <PersonalBlogsPreview />
+      </div>
     </div>
   );
 }

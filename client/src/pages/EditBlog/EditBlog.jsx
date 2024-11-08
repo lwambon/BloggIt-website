@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import apiBase from "../../utils/apiBase";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, useParams } from "react-router-dom";
+import Navbar from "../../component/Navbar/Navbar";
 
 import "./EditBlog.css";
 
@@ -114,77 +115,80 @@ function EditBlog() {
   }
 
   return (
-    <div className="writing-section">
-      <div className="writing-container">
-        <h2 className="writing-title">Update your Blog...</h2>
-        <div className="writing-content">
-          <div className="input">
-            <label htmlFor="blog-title">Blog Title</label>
-            <input
-              type="text"
-              id="blog-title"
-              placeholder="Enter blog title"
-              value={BlogTitle}
-              onChange={(e) => setBlogTitle(e.target.value)}
-              required
-            />
-          </div>
+    <div>
+      <Navbar />
+      <div className="writing-section">
+        <div className="writing-container">
+          <h2 className="writing-title">Update your Blog...</h2>
+          <div className="writing-content">
+            <div className="input">
+              <label htmlFor="blog-title">Blog Title</label>
+              <input
+                type="text"
+                id="blog-title"
+                placeholder="Enter blog title"
+                value={BlogTitle}
+                onChange={(e) => setBlogTitle(e.target.value)}
+                required
+              />
+            </div>
 
-          <div className="input">
-            <label htmlFor="synopsis">Synopsis</label>
-            <input
-              type="text"
-              id="synopsis"
-              placeholder="Enter synopsis"
-              value={synopsis}
-              onChange={(e) => setSynopsis(e.target.value)}
-              required
-            />
-          </div>
+            <div className="input">
+              <label htmlFor="synopsis">Synopsis</label>
+              <input
+                type="text"
+                id="synopsis"
+                placeholder="Enter synopsis"
+                value={synopsis}
+                onChange={(e) => setSynopsis(e.target.value)}
+                required
+              />
+            </div>
 
-          <div className="input">
-            <label htmlFor="body">Body</label>
-            <textarea
-              id="body"
-              placeholder="Write your blog content here..."
-              value={body}
-              onChange={(e) => setBody(e.target.value)}
-              required
-            ></textarea>
-          </div>
+            <div className="input">
+              <label htmlFor="body">Body</label>
+              <textarea
+                id="body"
+                placeholder="Write your blog content here..."
+                value={body}
+                onChange={(e) => setBody(e.target.value)}
+                required
+              ></textarea>
+            </div>
 
-          <div className="input">
-            <label htmlFor="image-upload">Upload Image</label>
-            <input
-              type="file"
-              id="image-upload"
-              accept="image/*"
-              onChange={(e) => setUploadImage(e.target.files[0])}
-            />
-          </div>
+            <div className="input">
+              <label htmlFor="image-upload">Upload Image</label>
+              <input
+                type="file"
+                id="image-upload"
+                accept="image/*"
+                onChange={(e) => setUploadImage(e.target.files[0])}
+              />
+            </div>
 
-          <div className="input">
-            <label htmlFor="visibility">Visibility</label>
-            <select
-              id="visibility"
-              value={visibility}
-              onChange={handleChangeVisibility}
-              required
+            <div className="input">
+              <label htmlFor="visibility">Visibility</label>
+              <select
+                id="visibility"
+                value={visibility}
+                onChange={handleChangeVisibility}
+                required
+              >
+                <option value="">Select Visibility</option>
+                <option value="public">Public</option>
+                <option value="private">Private</option>
+              </select>
+              <small>{visibilityExplanation}</small>
+            </div>
+
+            <button
+              className="submit-writtenblog"
+              onClick={handleSubmit}
+              disabled={updateIsLoading}
             >
-              <option value="">Select Visibility</option>
-              <option value="public">Public</option>
-              <option value="private">Private</option>
-            </select>
-            <small>{visibilityExplanation}</small>
+              {updateIsLoading ? "Loading, please wait..." : "Update Blog"}
+            </button>
           </div>
-
-          <button
-            className="submit-writtenblog"
-            onClick={handleSubmit}
-            disabled={updateIsLoading}
-          >
-            {updateIsLoading ? "Loading, please wait..." : "Update Blog"}
-          </button>
         </div>
       </div>
     </div>

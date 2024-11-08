@@ -1,14 +1,31 @@
-import React from "react";
-import { Navigate } from "react-router-dom";
+import { createContext, useState, useEffect } from "react";
 
-function Protected({ children }) {
-  const isAuthenticated = localStorage.getItem("isAuthenticated");
+export const AuthContext = createContext();
 
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
+export const AuthProvider = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  return children;
-}
+  // Check if user is logged in when the app starts
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      setIsAuthenticated(true);
+    }
+  }, []);
 
-export default Protected;
+  const login = () => {
+    localStorage.setItem("user", "true"); // You can store user data if needed
+    setIsAuthenticated(true);
+  };
+
+  const logout = () => {
+    localStorage.removeItem("user");
+    setIsAuthenticated(false);
+  };
+
+  return (
+    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};

@@ -5,7 +5,7 @@ import {
   signinUser,
   updateUserInformation,
 } from "./controllers/users.controllers.js";
-import { loginUsers } from "./controllers/auth.controllers.js";
+import { loginUsers, updatePassword } from "./controllers/auth.controllers.js";
 import validateUserInfo from "./middleware/validateUserInformation.js";
 import {
   createBlog,
@@ -38,6 +38,8 @@ app.post("/users", validateUserInfo, signinUser);
 app.put("/users", verifyToken, updateUserInformation);
 // Login users
 app.post("/auth/login", loginUsers);
+// updating passwords
+app.patch("/auth/password", verifyToken, updatePassword);
 //creating a blog
 app.post("/blogs", verifyToken, validateBlog, createBlog);
 //getting users blogs

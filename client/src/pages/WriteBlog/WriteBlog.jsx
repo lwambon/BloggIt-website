@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import apiBase from "../../utils/apiBase";
 
 import "./WriteBlog.css";
 
@@ -16,7 +17,7 @@ function WriteBlog() {
 
   const { mutate, isLoading } = useMutation({
     mutationFn: async (blogs) => {
-      const response = await fetch("http://localhost:4000/blogs", {
+      const response = await fetch(`${apiBase}/blogs`, {
         method: "POST",
         body: JSON.stringify(blogs),
         headers: {

@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
+import apiBase from "../../utils/apiBase";
 import "./MyBlogs.css";
 
 function MyBlogs() {
@@ -8,7 +9,7 @@ function MyBlogs() {
   const { isLoading, isError, error, data } = useQuery({
     queryKey: ["blog", id],
     queryFn: async () => {
-      const response = await fetch(`http://localhost:4000/blogs/${id}`, {
+      const response = await fetch(`${apiBase}/blogs/${id}`, {
         credentials: "include",
       });
 

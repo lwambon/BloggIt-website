@@ -1,12 +1,13 @@
 import "./ExploreBlogs.css";
 import { useQuery } from "react-query";
+import apiBase from "../../utils/apiBase";
 import BlogsPreview from "../../component/BlogsPreview/BlogsPreview";
 
 function ExploreBlog() {
   const { isLoading, isError, error, data } = useQuery({
     queryKey: ["fetchBlogs"],
     queryFn: async () => {
-      const response = await fetch("http://localhost:4000/blogs", {
+      const response = await fetch(`${apiBase}/blogs`, {
         credentials: "include",
       });
 

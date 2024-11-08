@@ -14,7 +14,7 @@ function Hero() {
         </p>
 
         <div className="heros-link">
-          <Link className="heros-link-items " to="/write">
+          <Link className="heros-link-items " to="/signup">
             start writing
           </Link>
           <Link className="heros-link-items " to="/explore">

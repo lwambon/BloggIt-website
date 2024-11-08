@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "react-query";
 import { toast } from "react-toastify";
+import apiBase from "../../utils/apiBase";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -21,7 +22,7 @@ function EditBlog() {
   const { isLoading, isError, error } = useQuery({
     queryKey: ["updateBlogs"],
     queryFn: async () => {
-      const response = await fetch(`http://localhost:4000/blogs/${blogsId}`, {
+      const response = await fetch(`${apiBase}/blogs/${blogsId}`, {
         credentials: "include",
       });
 

@@ -23,7 +23,7 @@ function Header() {
             Explore blogs
           </Link>
           <Link className="nav-lists" to="/blogs">
-            My blogs
+            Blogs
           </Link>
           <Link className="nav-lists" to="/profile">
             My profile

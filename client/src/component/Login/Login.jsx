@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
+import apiBase from "../../utils/apiBase";
 import "react-toastify/dist/ReactToastify.css";
 import UserState from "../../store/userStore";
 
@@ -15,23 +16,26 @@ function Login() {
 
   const { mutate, isLoading } = useMutation({
     mutationFn: async (userObj) => {
-      const response = await fetch("http://localhost:4000/auth/login", {
-        method: "POST",
-        body: JSON.stringify(userObj),
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
+      try {
+        const response = await fetch(`${apiBase}/auth/login`, {
+          method: "POST",
+          body: JSON.stringify(userObj),
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        });
 
-      if (!response.ok) {
-        const error = await response.json();
-        console.log(error);
-        throw new Error(error.message || "Login failed");
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.message || "Login failed");
+        }
+
+        const data = await response.json();
+        return data;
+      } catch (err) {
+        throw new Error("Network error or invalid response from server");
       }
-
-      const data = await response.json();
-      return data;
     },
     onSuccess: (user) => {
       setUser(user);
@@ -68,7 +72,6 @@ function Login() {
       return;
     }
 
-    // Prepare user object to send to the backend
     const userObj = {
       userName: userNameOrEmailAddress.includes("@")
         ? undefined

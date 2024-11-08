@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
+import apiBase from "../../utils/apiBase";
 import "react-toastify/dist/ReactToastify.css";
 import { FaPen } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
@@ -12,7 +13,7 @@ function PersonalBlogPreview({ id, BlogTitle, synopsis }) {
   const { isLoading, mutate } = useMutation({
     mutationKey: ["deleteBlog"],
     mutationFn: async (id) => {
-      const response = await fetch(`http://localhost:4000/blogs/${id}`, {
+      const response = await fetch(`${apiBase}/blogs/${id}`, {
         method: "DELETE",
         credentials: "include",
       });

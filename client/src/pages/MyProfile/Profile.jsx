@@ -1,16 +1,16 @@
 import "./Profile.css";
 import PersonalBlogsPreview from "../../component/PersonalBlogsPreview/PersonalBlogsPreview";
-import ProfileUpdate from "../../component/ProfileUpdate/ProfileUpdate";
 import PasswordUpdateForm from "../../component/PasswordUpdateForm/PasswordUpdateForm";
-import ProfileInformation from "../../component/ProfileInformation/ProfileInformation";
+import ProfileInformationUpdate from "../../component/ProfileInformationUpdateForm/ProfileInformationUpdateForm";
 
 function Profile() {
   return (
-    <div>
+    <div className="profile-container-section">
       <PersonalBlogsPreview />
-      <ProfileInformation />
-      <ProfileUpdate />
-      <PasswordUpdateForm />
+      <div className="profile-container">
+        <ProfileInformationUpdate />
+        <PasswordUpdateForm />
+      </div>
     </div>
   );
 }

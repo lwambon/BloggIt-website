@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import apiBase from "../../utils/apiBase";
 import "react-toastify/dist/ReactToastify.css";
 
 function SignUp() {
@@ -18,7 +19,7 @@ function SignUp() {
 
   const { mutate, isLoading } = useMutation({
     mutationFn: async (newUser) => {
-      const response = await fetch("http://localhost:4000/users", {
+      const response = await fetch(`${apiBase}/users`, {
         method: "POST",
         body: JSON.stringify(newUser),
         headers: {
@@ -156,7 +157,11 @@ function SignUp() {
           {formError && <p className="error-text">{formError}</p>}
 
           <div className="login-submit">
-            <button type="submit" disabled={isLoading}>
+            <button
+              type="submit"
+              className="login-submit-button"
+              disabled={isLoading}
+            >
               {isLoading ? "Loading, please wait..." : "Sign Up"}
             </button>
           </div>

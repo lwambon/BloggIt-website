@@ -1,5 +1,6 @@
 import React from "react";
 import { useQuery } from "react-query";
+import apiBase from "../../utils/apiBase";
 import { Link } from "react-router-dom";
 import "./PersonalBlogsPreview.css";
 import PersonalBlogPreview from "../PersonalBlogPreview/PersonalBlogPreview";
@@ -12,7 +13,7 @@ function PersonalBlogsPreview() {
   const { isLoading, isError, error, data } = useQuery({
     queryKey: ["PersonalBlogs"],
     queryFn: async () => {
-      const response = await fetch("http://localhost:4000/blogs/users", {
+      const response = await fetch(`${apiBase}/blogs/users`, {
         credentials: "include",
       });
 

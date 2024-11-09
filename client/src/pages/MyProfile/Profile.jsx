@@ -11,8 +11,10 @@ function Profile() {
       <div className="profile-container-section">
         <div className="profile-container">
           <UserProfile />
-          <ProfileInformationUpdate />
-          <PasswordUpdateForm />
+          <div className="updating-information-section">
+            <ProfileInformationUpdate />
+            <PasswordUpdateForm />
+          </div>
         </div>
       </div>
     </div>

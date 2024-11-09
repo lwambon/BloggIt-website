@@ -13,7 +13,7 @@ function WriteBlog() {
   const [body, setBody] = useState("");
   const [visibility, setVisibility] = useState("");
   const [visibilityExplanation, setVisibilityExplanation] = useState("");
-  const [BlogsImage, setBlogsImage] = useState(""); // Ensure this line is here
+  const [BlogsImage, setBlogsImage] = useState("");
 
   const navigate = useNavigate();
 
@@ -39,7 +39,7 @@ function WriteBlog() {
     onSuccess: (data) => {
       navigate(`/blogs/${data.id}`);
       toast.success("Blog created successfully", {
-        theme: "colored",
+        theme: "toast-success",
         autoClose: 3000,
       });
     },
@@ -47,7 +47,7 @@ function WriteBlog() {
       toast.error(
         error.message || "An error occurred while creating the blog",
         {
-          theme: "colored",
+          theme: "toast-error",
           autoClose: 3000,
         },
       );
@@ -89,7 +89,7 @@ function WriteBlog() {
 
     if (!BlogsImage) {
       toast.error("Please wait for the image to finish uploading", {
-        theme: "colored",
+        theme: "theme-error",
         autoClose: 3000,
       });
       return;

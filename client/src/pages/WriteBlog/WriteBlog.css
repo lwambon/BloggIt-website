@@ -67,8 +67,9 @@
   cursor: pointer;
   text-transform: capitalize;
   transition: background-color 0.3s ease;
-  width: max-content;
+  text-align: center;
   align-items: center;
+  justify-content: center;
   margin: auto;
 }
 

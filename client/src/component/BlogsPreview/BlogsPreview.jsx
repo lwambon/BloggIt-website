@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { FaUser } from "react-icons/fa";
+import useUserState from "../../store/userStore";
 import "./BlogsPreview.css";
 
 function BlogsPreview({
@@ -11,6 +11,7 @@ function BlogsPreview({
   profilePicture,
 }) {
   const navigate = useNavigate();
+  const user = useUserState((state) => state.user);
 
   function handleNavigate() {
     if (!id) {
@@ -18,6 +19,14 @@ function BlogsPreview({
     }
     navigate(`/blogs/${id}`);
   }
+
+  const authorProfilePic = profilePicture || (user && user.profilePicture);
+
+  const getInitials = (firstName, lastName) => {
+    const firstInitial = firstName ? firstName.charAt(0) : "";
+    const lastInitial = lastName ? lastName.charAt(0) : "";
+    return `${firstInitial}${lastInitial}`.toUpperCase();
+  };
 
   return (
     <div className="blogspreview-container">
@@ -42,21 +51,23 @@ function BlogsPreview({
 
         <div className="preview-auther">
           <div className="preview-user">
-            {profilePicture ? (
+            {authorProfilePic ? (
               <img
-                src={profilePicture}
+                src={authorProfilePic}
                 alt="Author Profile"
                 className="author-profile-picture"
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = "/path/to/default-image.jpg"; // fallback image path
+                  e.target.src = "/images/default-profile.jpg";
                 }}
               />
             ) : (
-              <FaUser className="default-user-icon" />
+              <div className="avatar">
+                {getInitials(user.firstName, user.lastName)}
+              </div>
             )}
 
-            <p className="auther-name">created by: {autherName}</p>
+            <p className="auther-name">Created by: {autherName}</p>
           </div>
           <div className="btn-preview">
             <button className="preview-button" onClick={handleNavigate}>

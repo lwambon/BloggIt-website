@@ -5,27 +5,54 @@
   justify-content: center;
   align-items: center;
   margin: auto;
+  width: 100%;
 }
 
+.personal-information-details {
+  width: 70rem;
+  box-shadow: 0 0 6px;
+  border-radius: 0.4rem;
+  margin: 2rem auto;
+}
 .title-personal-information {
   font-size: 2rem;
   text-transform: capitalize;
+  text-align: center;
 }
-.personal-information-details {
-  width: 40rem;
-  margin: 2rem 0;
+
+.uploading-image-section {
+  text-align: left;
+  font-weight: bold;
+}
+.uploading-image-section input {
+  width: 95%;
+  margin: 1.5rem;
 }
 
 .input-section {
   font-size: 1.5rem;
+}
+.uploading-indicator {
+  text-align: center;
+  background-color: green;
 }
 label {
   font-size: 1.5rem;
   margin-left: 2rem;
   line-height: 2;
 }
-input {
+.input-details {
   border-radius: 0.5rem;
-  width: 90%;
+  width: 95%;
   line-height: 2;
+  margin: 1rem 1.5rem;
+  text-transform: capitalize;
+  color: #000;
+}
+
+.submit-button {
+  text-align: center;
+  justify-content: center;
+  margin: 2rem auto;
+  width: 95%;
 }

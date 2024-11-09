@@ -9,14 +9,13 @@ function PasswordUpdateForm() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
-  const [messageType, setMessageType] = useState(""); // 'success' or 'error'
+  const [messageType, setMessageType] = useState("");
 
   const user = useUserState((state) => state.user);
 
   const { mutate, isLoading } = useMutation({
     mutationFn: async (passwords) => {
       const response = await fetch(`${apiBase}/auth/password`, {
-        // fixed template literal
         method: "PATCH",
         body: JSON.stringify(passwords),
         headers: { "Content-Type": "application/json" },
@@ -41,7 +40,7 @@ function PasswordUpdateForm() {
     },
 
     onError: (err) => {
-      setMessage(`Error: ${err.message}`); // fixed template literal
+      setMessage(`Error: ${err.message}`);
       setMessageType("error");
     },
   });
@@ -94,7 +93,8 @@ function PasswordUpdateForm() {
             type="password"
             id="previous-password"
             className="form-input"
-            value={prevPassword} // fixed variable name
+            placeholder="previous-password"
+            value={prevPassword}
             onChange={(e) => setPrevPassword(e.target.value)}
             required
           />
@@ -108,6 +108,7 @@ function PasswordUpdateForm() {
             type="password"
             id="new-password"
             className="form-input"
+            placeholder="new password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
             required
@@ -122,6 +123,7 @@ function PasswordUpdateForm() {
             type="password"
             id="confirm-password"
             className="form-input"
+            placeholder="confirm new password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required

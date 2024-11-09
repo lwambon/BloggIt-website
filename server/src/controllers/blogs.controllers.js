@@ -4,12 +4,13 @@ const client = new PrismaClient();
 
 export async function createBlog(req, res) {
   try {
-    const { BlogTitle, synopsis, body, visibility } = req.body;
+    const { BlogTitle, BlogsImage, synopsis, body, visibility } = req.body;
     const userId = req.userId;
 
     const newBlog = await client.blogs.create({
       data: {
         BlogTitle,
+        BlogsImage,
         synopsis,
         body,
         visibility,
@@ -94,14 +95,14 @@ export async function deleteBlog(req, res) {
 export async function updateBlog(req, res) {
   try {
     const { blogId } = req.params;
-    const { BlogTitle, synopsis, body, visibility } = req.body;
+    const { BlogTitle, BlogsImage, synopsis, body, visibility } = req.body;
     const userId = req.userId;
     const blog = await client.blogs.update({
       where: {
         id: blogId,
         owner: userId,
       },
-      data: { BlogTitle, synopsis, body, visibility },
+      data: { BlogTitle, BlogsImage, synopsis, body, visibility },
     });
     res.status(200).json(blog);
   } catch (e) {

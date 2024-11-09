@@ -1,10 +1,16 @@
 import { FaBloggerB } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useUserState from "../../store/userStore";
 import "./Navbar.css";
 
 function Navbar() {
-  const { user } = useUserState();
+  const { user, logout } = useUserState();
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    logout();
+    navigate("/");
+  }
 
   return (
     <div>
@@ -16,6 +22,7 @@ function Navbar() {
             </span>
             blogit
           </h2>
+
           <nav className="navigation-items">
             <Link className="nav-lists" to="/">
               Home
@@ -27,18 +34,27 @@ function Navbar() {
               Explore Blogs
             </Link>
             <Link className="nav-lists" to="/blogs">
-              Blogs
+              My Blogs
             </Link>
             <Link className="nav-lists" to="/profile">
-              My Profile
+              Profile
             </Link>
+          </nav>
 
-            {user && user.firstname && (
-              <Link className="nav-lists" to="/user">
-                Hello {user.firstname}
+          <div className="user-section">
+            {user && user.firstname ? (
+              <>
+                <span className="user-greeting">Hello, {user.firstname}</span>
+                <button className="logout-button" onClick={handleLogout}>
+                  Logout
+                </button>
+              </>
+            ) : (
+              <Link className="nav-lists" to="/login">
+                Login
               </Link>
             )}
-          </nav>
+          </div>
         </div>
       </div>
     </div>

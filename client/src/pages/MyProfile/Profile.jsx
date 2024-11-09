@@ -1,6 +1,7 @@
-import "./Profile.css";
+//import "./Profile.css";
 import PasswordUpdateForm from "../../component/PasswordUpdateForm/PasswordUpdateForm";
 import ProfileInformationUpdate from "../../component/ProfileInformationUpdateForm/ProfileInformationUpdateForm";
+import UserProfile from "../../component/UserInformation/UserInformation";
 import Navbar from "../../component/Navbar/Navbar";
 
 function Profile() {
@@ -9,6 +10,7 @@ function Profile() {
       <Navbar />
       <div className="profile-container-section">
         <div className="profile-container">
+          <UserProfile />
           <ProfileInformationUpdate />
           <PasswordUpdateForm />
         </div>

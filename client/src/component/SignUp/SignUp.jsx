@@ -39,7 +39,7 @@ function SignUp() {
         draggable: true,
         theme: "colored",
       });
-      navigate("/");
+      navigate("/login");
     },
     onError: (error) => {
       toast.error(error.message || "Something went wrong!", {

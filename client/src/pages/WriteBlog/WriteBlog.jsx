@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import axios from "axios";
 import apiBase from "../../utils/apiBase";
 import Navbar from "../../component/Navbar/Navbar";
 import "./WriteBlog.css";
@@ -10,9 +11,10 @@ function WriteBlog() {
   const [BlogTitle, setBlogTitle] = useState("");
   const [synopsis, setSynopsis] = useState("");
   const [body, setBody] = useState("");
-  const [uploadImage, setUploadImage] = useState("");
   const [visibility, setVisibility] = useState("");
   const [visibilityExplanation, setVisibilityExplanation] = useState("");
+  const [BlogsImage, setBlogsImage] = useState(""); // Ensure this line is here
+
   const navigate = useNavigate();
 
   const { mutate, isLoading } = useMutation({
@@ -36,7 +38,7 @@ function WriteBlog() {
     },
     onSuccess: (data) => {
       navigate(`/blogs/${data.id}`);
-      toast.success("Notes written successfully", {
+      toast.success("Blog created successfully", {
         theme: "colored",
         autoClose: 3000,
       });
@@ -61,13 +63,43 @@ function WriteBlog() {
     );
   }
 
+  const [isUploading, setIsUploading] = useState(false);
+  async function handleFile(event) {
+    const present_key = "gevuuttq";
+    const cloud_name = "ddvzeq4od";
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", present_key);
+
+    try {
+      const res = await axios.post(
+        `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
+        formData,
+      );
+      setBlogsImage(res.data.secure_url);
+      console.log("Image uploaded:", res.data.secure_url);
+    } catch (err) {
+      console.error("Upload error:", err);
+    }
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
+
+    if (!BlogsImage) {
+      toast.error("Please wait for the image to finish uploading", {
+        theme: "colored",
+        autoClose: 3000,
+      });
+      return;
+    }
+
     const blogs = {
       BlogTitle,
       synopsis,
       body,
-      uploadImage,
+      BlogsImage,
       visibility,
     };
 
@@ -96,6 +128,16 @@ function WriteBlog() {
             </div>
 
             <div className="input">
+              <label htmlFor="image-upload">Upload Image</label>
+              <input
+                type="file"
+                id="image-upload"
+                accept="image/*"
+                onChange={handleFile}
+              />
+            </div>
+
+            <div className="input">
               <label htmlFor="synopsis">Synopsis</label>
               <input
                 type="text"
@@ -119,16 +161,6 @@ function WriteBlog() {
             </div>
 
             <div className="input">
-              <label htmlFor="image-upload">Upload Image</label>
-              <input
-                type="file"
-                id="image-upload"
-                accept="image/*"
-                onChange={(e) => setUploadImage(e.target.files[0])}
-              />
-            </div>
-
-            <div className="input">
               <label htmlFor="visibility">Visibility</label>
               <select
                 id="visibility"
@@ -146,9 +178,11 @@ function WriteBlog() {
             <button
               className="submit-writtenblog"
               onClick={handleSubmit}
-              disabled={isLoading}
+              disabled={isLoading || isUploading}
             >
-              {isLoading ? "Loading, please wait..." : "Create Blog"}
+              {isLoading || isUploading
+                ? "Loading, please wait..."
+                : "Create Blog"}
             </button>
           </div>
         </div>

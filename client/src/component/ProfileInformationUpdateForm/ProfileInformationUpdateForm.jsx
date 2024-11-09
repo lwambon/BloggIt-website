@@ -15,69 +15,79 @@ function ProfileInformation() {
   const setUser = useUserState((state) => state.setUser);
   const user = useUserState((state) => state.user);
 
+  // Cloudinary upload function
+  const uploadToCloudinary = async (file) => {
+    const formData = new FormData();
+    const present_key = "gevuuttq";
+    const cloud_name = "ddvzeq4od";
+    formData.append("file", file);
+    formData.append("upload_preset", present_key);
+
+    const response = await fetch(
+      `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
+      {
+        method: "POST",
+        body: formData,
+      },
+    );
+
+    const data = await response.json();
+    return data.secure_url;
+  };
+
   const { mutate, isLoading } = useMutation(
     async (updatedUserObj) => {
-      const formData = new FormData();
-      formData.append("firstName", updatedUserObj.firstName);
-      formData.append("lastName", updatedUserObj.lastName);
-      formData.append("userName", updatedUserObj.userName);
-      formData.append("emailAddress", updatedUserObj.emailAddress);
+      let imageUrl = updatedUserObj.profilePicture;
       if (updatedUserObj.profilePicture) {
-        formData.append("profilePicture", updatedUserObj.profilePicture);
+        imageUrl = await uploadToCloudinary(updatedUserObj.profilePicture);
       }
-
-      // Log the API base URL to debug
-      //console.log("apiBase:", apiBase); // This should not be undefined
 
       const response = await fetch(`${apiBase}/users`, {
         method: "PUT",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...updatedUserObj, profilePicture: imageUrl }),
         credentials: "include",
       });
 
       if (!response.ok) {
-        let error = "An error occurred";
-        try {
-          const errorResponse = await response.json();
-          error = errorResponse.message || error;
-        } catch (err) {
-          console.error("Failed to parse error response", err);
-        }
+        const error = (await response.json()).message || "An error occurred";
         throw new Error(error);
       }
 
-      try {
-        return await response.json();
-      } catch (err) {
-        console.warn("No JSON response, assuming empty success response.");
-        return {}; // Return an empty object if no JSON is present
-      }
+      return response.json();
     },
     {
       onSuccess: (data) => {
         setUser(data);
+        localStorage.setItem("user", JSON.stringify(data)); // Save user data to local storage
         toast.success("Profile information updated successfully", {
           theme: "colored",
           duration: 3000,
         });
       },
       onError: (error) => {
-        console.error("Mutation error:", error.message);
-        toast.error(error.message, {
-          theme: "colored",
-          duration: 3000,
-        });
+        toast.error(error.message, { theme: "colored", duration: 3000 });
       },
     },
   );
 
+  // Load user data from local storage on component mount
   useEffect(() => {
-    if (!user) return;
-    setProfilePicture(user.profilePicture);
-    setFirstName(user.firstName);
-    setLastName(user.lastName);
-    setUserName(user.userName);
-    setEmailAddress(user.emailAddress);
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setProfilePicture(storedUser.profilePicture || null);
+      setFirstName(storedUser.firstName || "");
+      setLastName(storedUser.lastName || "");
+      setUserName(storedUser.userName || "");
+      setEmailAddress(storedUser.emailAddress || "");
+    } else if (user) {
+      // If no data in local storage, fallback to state
+      setProfilePicture(user.profilePicture || null);
+      setFirstName(user.firstName || "");
+      setLastName(user.lastName || "");
+      setUserName(user.userName || "");
+      setEmailAddress(user.emailAddress || "");
+    }
   }, [user]);
 
   function handleUpdateProfileInformation(e) {
@@ -109,7 +119,6 @@ function ProfileInformation() {
               onChange={(e) => setProfilePicture(e.target.files[0])}
             />
           </div>
-
           <div className="input-section">
             <label htmlFor="firstName">First Name</label>
             <input
@@ -122,7 +131,6 @@ function ProfileInformation() {
               onChange={(e) => setFirstName(e.target.value)}
             />
           </div>
-
           <div className="input-section">
             <label htmlFor="lastName">Last Name</label>
             <input
@@ -135,7 +143,6 @@ function ProfileInformation() {
               onChange={(e) => setLastName(e.target.value)}
             />
           </div>
-
           <div className="input-section">
             <label htmlFor="userName">User Name</label>
             <input
@@ -148,7 +155,6 @@ function ProfileInformation() {
               onChange={(e) => setUserName(e.target.value)}
             />
           </div>
-
           <div className="input-section">
             <label htmlFor="emailAddress">Email Address</label>
             <input
@@ -161,7 +167,6 @@ function ProfileInformation() {
               onChange={(e) => setEmailAddress(e.target.value)}
             />
           </div>
-
           <button type="submit" className="submit-button" disabled={isLoading}>
             {isLoading ? "Loading please wait..." : "Update Profile"}
           </button>

@@ -1,34 +1,67 @@
+.header-content {
+  background-color: #24360d;
+  padding: 1.2rem;
+}
+
 .navigation-content-link {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: 1.2rem;
-  background-color: #24360d;
+  width: 100%;
 }
 
 .header-logo {
   text-transform: uppercase;
   font-size: 2rem;
   color: var(--primary-btn-color);
+  display: flex;
+  align-items: center;
 }
 
 .header-logo span {
   font-size: 3.5rem;
-  padding-right: 1.5rem;
+  padding-right: 1rem;
 }
 
 .nav-lists {
   list-style: none;
   text-decoration: none;
-  padding: 3rem;
+  padding: 1rem 2rem;
   font-size: 1.7rem;
   text-transform: capitalize;
   color: var(--secondary-color);
+  display: inline-block;
 }
 
 .nav-lists:hover {
   color: var(--primary-btn-color);
   cursor: pointer;
   transition: 0.3s;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+}
+
+.user-greeting {
+  font-size: 1.6rem;
+  color: var(--secondary-color);
+  margin-right: 1rem;
+}
+
+.logout-button {
+  background-color: var(--primary-btn-color);
+  border: none;
+  padding: 0.7rem 1.2rem;
+  font-size: 1.6rem;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+  background-color: #1d9d6f;
 }

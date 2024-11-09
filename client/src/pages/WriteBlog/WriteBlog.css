@@ -3,7 +3,7 @@
   flex-wrap: wrap;
   justify-content: center;
   padding: 2rem;
-  background-color: var(--background-color);
+  background-color: #ee66a6;
   height: 100%;
 }
 
@@ -59,7 +59,7 @@
 
 .submit-writtenblog {
   padding: 0.8rem;
-  font-size: 1.9rem;
+  font-size: 1rem;
   color: #fff;
   background-color: #007bff;
   border: none;

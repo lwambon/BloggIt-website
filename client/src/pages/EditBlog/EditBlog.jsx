@@ -4,20 +4,19 @@ import { toast } from "react-toastify";
 import apiBase from "../../utils/apiBase";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 import Navbar from "../../component/Navbar/Navbar";
-
 import "./EditBlog.css";
 
 function EditBlog() {
   const [BlogTitle, setBlogTitle] = useState("");
   const [synopsis, setSynopsis] = useState("");
   const [body, setBody] = useState("");
-  const [uploadImage, setUploadImage] = useState("");
+  const [BlogsImage, setBlogsImage] = useState("");
   const [visibility, setVisibility] = useState("");
   const [visibilityExplanation, setVisibilityExplanation] = useState("");
 
   const { blogsId } = useParams();
-  console.log("Blog ID:", blogsId);
   const redirect = useNavigate();
 
   const { isLoading, isError, error } = useQuery({
@@ -27,7 +26,7 @@ function EditBlog() {
         credentials: "include",
       });
 
-      if (response.ok === false) {
+      if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message);
       }
@@ -37,9 +36,9 @@ function EditBlog() {
     },
     onSuccess: (data) => {
       setBlogTitle(data.BlogTitle);
+      setBlogsImage(data.BlogsImage);
       setSynopsis(data.synopsis);
       setBody(data.body);
-      setUploadImage(data.uploadImage);
       setVisibility(data.visibility);
     },
     onError: (error) => {
@@ -55,13 +54,13 @@ function EditBlog() {
 
   const { mutate, isLoading: updateIsLoading } = useMutation({
     mutationFn: async (updateBlogs) => {
-      const response = await fetch(`http://localhost:4000/blogs/${blogsId}`, {
+      const response = await fetch(`${apiBase}/blogs/${blogsId}`, {
         method: "PUT",
         body: JSON.stringify(updateBlogs),
         headers: { "Content-Type": "application/json" },
         credentials: "include",
       });
-      if (response.ok === false) {
+      if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message);
       }
@@ -70,7 +69,7 @@ function EditBlog() {
       return data;
     },
     onSuccess: () => {
-      toast.success("Blogs updated successfully", {
+      toast.success("Blog updated successfully", {
         theme: "colored",
         autoClose: 3000,
       });
@@ -84,14 +83,6 @@ function EditBlog() {
     },
   });
 
-  if (isLoading) {
-    return <h2 className="isloading">Loading, please wait...</h2>;
-  }
-
-  if (isError) {
-    return <h2 className="isloading">{error.message}</h2>;
-  }
-
   function handleChangeVisibility(e) {
     setVisibility(e.target.value);
     setVisibilityExplanation(
@@ -101,17 +92,55 @@ function EditBlog() {
     );
   }
 
+  const [isUploading, setIsUploading] = useState(false);
+  async function handleFile(event) {
+    const present_key = "gevuuttq";
+    const cloud_name = "ddvzeq4od";
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", present_key);
+
+    try {
+      const res = await axios.post(
+        `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
+        formData,
+      );
+      setBlogsImage(res.data.secure_url);
+      console.log("Image uploaded:", res.data.secure_url);
+    } catch (err) {
+      console.error("Upload error:", err);
+    }
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
+
+    if (!BlogsImage) {
+      toast.error("Please wait for the image to finish uploading", {
+        theme: "colored",
+        autoClose: 3000,
+      });
+      return;
+    }
+
     const blogs = {
       BlogTitle,
       synopsis,
       body,
-      uploadImage,
+      BlogsImage,
       visibility,
     };
 
     mutate(blogs);
+  }
+
+  if (isLoading) {
+    return <h2 className="isloading">Loading, please wait...</h2>;
+  }
+
+  if (isError) {
+    return <h2 className="isloading">{error.message}</h2>;
   }
 
   return (
@@ -162,8 +191,15 @@ function EditBlog() {
                 type="file"
                 id="image-upload"
                 accept="image/*"
-                onChange={(e) => setUploadImage(e.target.files[0])}
+                onChange={handleFile}
               />
+              {BlogsImage && (
+                <img
+                  src={BlogsImage}
+                  alt="Blog Preview"
+                  style={{ width: "100px", marginTop: "10px" }}
+                />
+              )}
             </div>
 
             <div className="input">
@@ -184,9 +220,11 @@ function EditBlog() {
             <button
               className="submit-writtenblog"
               onClick={handleSubmit}
-              disabled={updateIsLoading}
+              disabled={updateIsLoading || isUploading}
             >
-              {updateIsLoading ? "Loading, please wait..." : "Update Blog"}
+              {updateIsLoading || isUploading
+                ? "Loading, please wait..."
+                : "Update Blog"}
             </button>
           </div>
         </div>

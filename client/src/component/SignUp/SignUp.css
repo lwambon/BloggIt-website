@@ -3,16 +3,16 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  background: linear-gradient(135deg, #e4c087, #f6efbd);
+  background: linear-gradient(135deg, #e9a5c5, #e07eac);
 }
 .login-container {
   width: 70%;
   margin: 2rem auto;
-  max-width: 45rem;
+  max-width: 60rem;
   background-color: #fff;
   padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 1.3rem rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  box-shadow: 0 0 6px;
   text-align: center;
 }
 
@@ -32,7 +32,7 @@
 }
 
 label {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   color: var(--primary-color);
   text-transform: capitalize;
 }
@@ -42,7 +42,7 @@ input {
   padding: 1.2rem;
   border: 1px solid #ddd;
   border-radius: 0.5rem;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   color: var(--primary-color);
 }
 

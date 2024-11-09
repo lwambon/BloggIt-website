@@ -24,8 +24,6 @@ function MyBlogs() {
       const data = await response.json();
       console.log(data);
       return data;
-
-      //return response.json();
     },
   });
 
@@ -45,11 +43,19 @@ function MyBlogs() {
           <h2 className="myblogs-title">{data.BlogTitle}</h2>
           <div className="authors-info">
             <p>
-              Auther: {data.user.firstName} {data.user.lastName}
+              Author: {data.user.firstName} {data.user.lastName}
             </p>
-            <p>Date Created:{new Date(data.CreatedAt).toDateString()}</p>
-            <p>Updated Created:{new Date(data.UpdatedAt).toDateString()}</p>
+            <p>Date Created: {new Date(data.CreatedAt).toDateString()}</p>
+            <p>Updated On: {new Date(data.UpdatedAt).toDateString()}</p>
           </div>
+
+          {data.BlogsImage && (
+            <img
+              src={data.BlogsImage}
+              alt={`${data.BlogTitle} image`}
+              className="data-image"
+            />
+          )}
           <p className="blogs-sub-heading">{data.synopsis}</p>
           <p className="data-body">{data.body}</p>
         </div>

@@ -41,6 +41,7 @@ function ExploreBlog() {
             <BlogsPreview
               key={blog.id}
               BlogTitle={blog.BlogTitle}
+              BlogsImage={blog.BlogsImage}
               synopsis={blog.synopsis}
               autherName={`${blog.user.firstName} ${blog.user.lastName}`}
               id={blog.id}

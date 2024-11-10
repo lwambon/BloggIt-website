@@ -35,7 +35,7 @@ app.use(cookieParser());
 app.post("/users", validateUserInfo, signinUser);
 
 //updating users information
-app.put("/users", verifyToken, updateUserInformation);
+app.put("/users/:userId", verifyToken, updateUserInformation);
 // Login users
 app.post("/auth/login", loginUsers);
 // updating passwords

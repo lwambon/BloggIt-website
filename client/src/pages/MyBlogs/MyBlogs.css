@@ -3,14 +3,16 @@
   flex-wrap: wrap;
   padding: 3rem 0;
   height: 100%;
-  background-color: #ede8dc;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)),
+    url(../../assets/heros.jpg);
 }
 .myblogs-container {
   width: 60%;
   margin: 1.5rem auto;
   align-items: center;
-  box-shadow: 0 0 4px;
+  box-shadow: 0 0 6px;
   padding: 1rem;
+  background-color: #fff;
 }
 
 .myblogs-title {
@@ -36,6 +38,7 @@
   text-align: justify;
   padding: 0 2rem;
   line-height: 1.4;
+  font-weight: bold;
 }
 
 .data-body {

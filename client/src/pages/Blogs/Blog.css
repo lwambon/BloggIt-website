@@ -1,4 +1,5 @@
 .blogs-container {
-  background-color: #e07eac;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)),
+    url(../../assets/heros.jpg);
   height: 100%;
 }

@@ -17,7 +17,7 @@ function Hero() {
           <Link className="heros-link-items " to="/signup">
             start writing
           </Link>
-          <Link className="heros-link-items " to="/explore">
+          <Link className="heros-link-items " to="/signup">
             Explore stories from other readers
           </Link>
         </div>

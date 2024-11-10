@@ -39,6 +39,9 @@ function Navbar() {
             <Link className="nav-lists" to="/profile">
               Profile
             </Link>
+            <Link to="/" className="nav-lists">
+              Welcome {user.firstName}
+            </Link>
           </nav>
 
           <div className="user-section">
@@ -50,8 +53,8 @@ function Navbar() {
                 </button>
               </>
             ) : (
-              <Link className="nav-lists" to="/login">
-                Login
+              <Link to="/" className="nav-lists" onClick={handleLogout}>
+                Logout
               </Link>
             )}
           </div>

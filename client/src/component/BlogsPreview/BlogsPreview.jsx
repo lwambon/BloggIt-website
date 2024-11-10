@@ -67,7 +67,7 @@ function BlogsPreview({
               </div>
             )}
 
-            <p className="auther-name">Created by: {autherName}</p>
+            <p className="auther-name">By {autherName}</p>
           </div>
           <div className="btn-preview">
             <button className="preview-button" onClick={handleNavigate}>

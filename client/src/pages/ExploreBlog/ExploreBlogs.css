@@ -5,6 +5,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 2.5rem;
-  background-color: #e07eac;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)),
+    url(../../assets/heros.jpg);
   padding: 1.5rem;
 }

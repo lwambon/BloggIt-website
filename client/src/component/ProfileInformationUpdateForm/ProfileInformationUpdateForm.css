@@ -25,7 +25,7 @@
   font-weight: bold;
 }
 .uploading-image-section input {
-  width: 95%;
+  width: max-content;
   margin: 1.5rem;
 }
 

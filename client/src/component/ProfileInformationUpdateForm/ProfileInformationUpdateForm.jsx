@@ -78,9 +78,8 @@ function ProfileInformation() {
       onSuccess: (data) => {
         setUser(data);
         localStorage.setItem("user", JSON.stringify(data));
-        e;
         toast.success("Profile information updated successfully", {
-          theme: "toast-success",
+          theme: "success",
           duration: 3000,
         });
       },
@@ -122,7 +121,9 @@ function ProfileInformation() {
   return (
     <div className="profile-section">
       <div className="profile-container">
-        <h2 className="title-personal-information">Personal Information</h2>
+        <h2 className="title-personal-information">
+          Personal Information Update
+        </h2>
         <form
           onSubmit={handleUpdateProfileInformation}
           className="personal-information-details"

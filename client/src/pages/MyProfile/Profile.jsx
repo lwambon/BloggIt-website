@@ -10,11 +10,11 @@ function Profile() {
       <Navbar />
       <div className="profile-container-section">
         <div className="profile-container">
-          <UserProfile />
-          <div className="updating-information-section">
+          <div className="user-profile-information">
+            <UserProfile />
             <ProfileInformationUpdate />
-            <PasswordUpdateForm />
           </div>
+          <PasswordUpdateForm />
         </div>
       </div>
     </div>

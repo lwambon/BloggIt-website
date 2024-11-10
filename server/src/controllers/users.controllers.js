@@ -5,7 +5,14 @@ const Client = new PrismaClient();
 
 export const signinUser = async (req, res) => {
   try {
-    const { firstName, lastName, userName, emailAddress, password } = req.body;
+    const {
+      firstName,
+      lastName,
+      userName,
+      emailAddress,
+      password,
+      profilePicture,
+    } = req.body;
 
     const hashedPassword = await bcrypt.hash(password, 8);
     const newUser = await Client.users.create({
@@ -14,6 +21,7 @@ export const signinUser = async (req, res) => {
         lastName,
         userName,
         emailAddress,
+        profilePicture,
         password: hashedPassword,
       },
     });

@@ -73,6 +73,7 @@ function WriteBlog() {
     formData.append("upload_preset", present_key);
 
     try {
+      setIsUploading(true); // Start uploading
       const res = await axios.post(
         `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
         formData,
@@ -81,6 +82,8 @@ function WriteBlog() {
       console.log("Image uploaded:", res.data.secure_url);
     } catch (err) {
       console.error("Upload error:", err);
+    } finally {
+      setIsUploading(false); // End uploading
     }
   }
 
@@ -135,6 +138,11 @@ function WriteBlog() {
                 accept="image/*"
                 onChange={handleFile}
               />
+              {isUploading && (
+                <div className="uploading-message">
+                  Uploading your image, please wait...
+                </div>
+              )}
             </div>
 
             <div className="input">

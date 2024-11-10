@@ -17,7 +17,15 @@
   padding: 2rem;
   box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.1);
 }
-
+.uploading-message {
+  padding: 0.8rem;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #1234f3;
+  border-radius: 0.5rem;
+  text-align: center;
+  margin: 1rem auto;
+}
 .writing-title {
   text-align: center;
   text-transform: capitalize;

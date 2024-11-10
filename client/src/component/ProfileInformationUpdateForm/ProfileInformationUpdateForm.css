@@ -14,6 +14,7 @@
   border-radius: 0.4rem;
   margin: 2rem auto;
 }
+
 .title-personal-information {
   font-size: 2rem;
   text-transform: capitalize;
@@ -24,6 +25,7 @@
   text-align: left;
   font-weight: bold;
 }
+
 .uploading-image-section input {
   width: max-content;
   margin: 1.5rem;
@@ -32,15 +34,31 @@
 .input-section {
   font-size: 1.5rem;
 }
+
 .uploading-indicator {
   text-align: center;
-  background-color: green;
+  background-color: #4907ff;
+  padding: 0.5rem;
+  color: #fff;
+  border-radius: 0.5rem;
+  font-size: 1.3rem;
+  margin: 1rem auto;
+  justify-content: center;
 }
+
+.update-success-message {
+  text-align: center;
+  color: green;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
 label {
   font-size: 1.5rem;
   margin-left: 2rem;
   line-height: 2;
 }
+
 .input-details {
   border-radius: 0.5rem;
   width: 95%;

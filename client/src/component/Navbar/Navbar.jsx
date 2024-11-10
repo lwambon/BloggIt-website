@@ -1,67 +1,71 @@
+import React from "react";
 import { FaBloggerB } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import useUserState from "../../store/userStore";
 import "./Navbar.css";
 
-function Navbar() {
+function Header() {
   const { user, logout } = useUserState();
   const navigate = useNavigate();
 
-  function handleLogout() {
+  const handleLogout = () => {
     logout();
-    navigate("/");
-  }
+    localStorage.removeItem("isAuthenticated");
+    navigate("/login");
+  };
 
   return (
-    <div>
-      <div className="header-content">
-        <div className="navigation-content-link">
-          <h2 className="header-logo">
-            <span>
-              <FaBloggerB />
-            </span>
-            blogit
-          </h2>
+    <div className="header-content">
+      <div className="navigation-content-link">
+        <h2 className="header-logo">
+          <span>
+            <FaBloggerB />
+          </span>
+          blogIt
+        </h2>
 
-          <nav className="navigation-items">
-            <Link className="nav-lists" to="/">
-              Home
-            </Link>
-            <Link className="nav-lists" to="/write">
-              Write Blog
-            </Link>
-            <Link className="nav-lists" to="/explore">
-              Explore Blogs
-            </Link>
-            <Link className="nav-lists" to="/blogs">
-              My Blogs
-            </Link>
-            <Link className="nav-lists" to="/profile">
-              Profile
-            </Link>
-            <Link to="/" className="nav-lists">
-              Welcome {user.firstName}
-            </Link>
-          </nav>
-
-          <div className="user-section">
-            {user && user.firstname ? (
-              <>
-                <span className="user-greeting">Hello, {user.firstname}</span>
-                <button className="logout-button" onClick={handleLogout}>
-                  Logout
-                </button>
-              </>
-            ) : (
-              <Link to="/" className="nav-lists" onClick={handleLogout}>
-                Logout
+        <nav className="navigation-items">
+          <Link className="nav-lists" to="/">
+            Home
+          </Link>
+          {user ? (
+            <>
+              <Link className="nav-lists" to="/write">
+                Write Blog
               </Link>
-            )}
-          </div>
+              <Link className="nav-lists" to="/explore">
+                Explore Blogs
+              </Link>
+              <Link className="nav-lists" to="/blogs">
+                My Blogs
+              </Link>
+              <Link className="nav-lists" to="/profile">
+                Profile
+              </Link>
+              <p className="nav-lists">Hello, {user.firstName}</p>
+            </>
+          ) : (
+            <>
+              <Link className="nav-lists" to="/login">
+                Login
+              </Link>
+              <Link className="nav-lists" to="/sign-up">
+                Sign Up
+              </Link>
+            </>
+          )}
+        </nav>
+
+        <div className="user-section">
+          {user ? (
+            <button className="logout-button" onClick={handleLogout}>
+              Logout
+            </button>
+          ) : null}
         </div>
       </div>
     </div>
   );
 }
 
-export default Navbar;
+export default Header;

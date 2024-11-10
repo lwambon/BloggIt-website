@@ -12,12 +12,16 @@ function ProfileInformation() {
   const [userName, setUserName] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [isUploading, setIsUploading] = useState(false);
+  const [uploadMessage, setUploadMessage] = useState("");
+  const [updateSuccessMessage, setUpdateSuccessMessage] = useState("");
 
   const setUser = useUserState((state) => state.setUser);
   const user = useUserState((state) => state.user);
+  const userId = user?.id || JSON.parse(localStorage.getItem("user"))?.id;
 
   const uploadToCloudinary = async (file) => {
     setIsUploading(true);
+    setUploadMessage("Uploading image...");
     const formData = new FormData();
     const present_key = "gevuuttq";
     const cloud_name = "ddvzeq4od";
@@ -35,8 +39,9 @@ function ProfileInformation() {
 
       const data = await response.json();
       if (data.secure_url) {
+        setUploadMessage("Image uploaded successfully!");
         toast.success("Image uploaded successfully!", {
-          theme: "toast-success",
+          theme: "colored",
           duration: 3000,
         });
         return data.secure_url;
@@ -44,12 +49,14 @@ function ProfileInformation() {
         throw new Error("Image upload failed");
       }
     } catch (error) {
+      setUploadMessage("Error uploading image. Please try again.");
       toast.error("Error uploading image. Please try again.", {
-        theme: "toast-erro",
+        theme: "colored",
         duration: 3000,
       });
-      setIsUploading(false);
       return null;
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -60,7 +67,7 @@ function ProfileInformation() {
         imageUrl = await uploadToCloudinary(updatedUserObj.profilePicture);
       }
 
-      const response = await fetch(`${apiBase}/users`, {
+      const response = await fetch(`${apiBase}/users/${userId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...updatedUserObj, profilePicture: imageUrl }),
@@ -78,8 +85,9 @@ function ProfileInformation() {
       onSuccess: (data) => {
         setUser(data);
         localStorage.setItem("user", JSON.stringify(data));
+        setUpdateSuccessMessage("Profile information updated successfully!");
         toast.success("Profile information updated successfully", {
-          theme: "success",
+          theme: "colored",
           duration: 3000,
         });
       },
@@ -139,7 +147,7 @@ function ProfileInformation() {
               />
             </div>
             {isUploading && (
-              <div className="uploading-indicator">Uploading...</div>
+              <div className="uploading-indicator">{uploadMessage}</div>
             )}
           </div>
           <div className="input-section">
@@ -194,6 +202,10 @@ function ProfileInformation() {
             {isLoading ? "Loading please wait..." : "Update Profile"}
           </button>
         </form>
+
+        {updateSuccessMessage && (
+          <div className="update-success-message">{updateSuccessMessage}</div>
+        )}
       </div>
     </div>
   );
